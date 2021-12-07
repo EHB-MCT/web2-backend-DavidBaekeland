@@ -1,0 +1,28 @@
+{
+  "name": "web2-backend-davidbaekeland",
+  "version": "1.0.0",
+  "description": "https://www.youtube.com/watch?v=vXmeO_BKrxA\r https://www.youtube.com/watch?v=8j8qc6sx7Xo\r https://www.youtube.com/watch?v=p3O6YcUUJmE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EHB-MCT/web2-backend-DavidBaekeland.git"
+  },
+  "author": "David Baekeland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EHB-MCT/web2-backend-DavidBaekeland/issues"
+  },
+  "homepage": "https://github.com/EHB-MCT/web2-backend-DavidBaekeland#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "mongodb": "^4.2.1"
+  }
+}
