@@ -119,6 +119,3 @@ dist
 
 # SVG
 *.svg
-
-# Config MongoDB
-config.json
