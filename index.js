@@ -5,14 +5,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
+import * as dotenv from "dotenv"
+dotenv.config()
 // const express = require('express');
 // const bodyParser = require('body-parser')
 // const { MongoClient } = require("mongodb");
 //const cors = require("cors");
 //require('dotenv').config();
 
+
+
 // create the mongo Client to use
-//const client = new MongoClient(process.env.FINAL_URL)
+const client = new MongoClient(process.env.FINAL_URL)
 
 const app = express();
 const port = process.env.PORT;
@@ -28,27 +32,27 @@ app.get('/', (req, res) => {
     res.redirect("/info.html");
 })
 
-// app.get('/users', async(req, res) => {
-//   try {
-//       await client.connect();
+app.get('/users', async(req, res) => {
+  try {
+      await client.connect();
 
-//       console.log("Connected correctly to server");
-//       const db = client.db(process.env.DB);
+      console.log("Connected correctly to server");
+      const db = client.db(process.env.DB);
 
-//       const col = db.collection("users");
+      const col = db.collection("users");
 
-//       const data =  await col.find({}).toArray();
-//       res.status(200).send(data);
-//   }catch(error)  {
-//       console.log(error);
-//       res.status(500).send({
-//           error: 'error',
-//           value: error
-//       });
-//   }finally  {
-//       await client.close();
-//   }
-// });
+      const data =  await col.find({}).toArray();
+      res.status(200).send(data[0].name);
+  }catch(error)  {
+      console.log(error);
+      res.status(500).send({
+          error: 'error',
+          value: error
+      });
+  }finally  {
+      await client.close();
+  }
+});
 
 app.get('/icons', async(req, res)  =>  {
     try {
