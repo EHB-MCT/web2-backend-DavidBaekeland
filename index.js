@@ -15,7 +15,7 @@ import cors from 'cors';
 //const client = new MongoClient(process.env.FINAL_URL)
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 
 app.use(express.static("public"));
