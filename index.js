@@ -25,7 +25,7 @@ const port = process.env.PORT;
 app.use(express.static("public"));
 // alle code wordt eerst uitgevoerd door middelware (bodyParser) dan in functies
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
 
 app.get('/', (req, res) => {
