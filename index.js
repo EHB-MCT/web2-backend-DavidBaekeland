@@ -21,7 +21,7 @@ const port = process.env.PORT;
 app.use(express.static("public"));
 // alle code wordt eerst uitgevoerd door middelware (bodyParser) dan in functies
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 
 
 app.get('/', (req, res) => {
@@ -50,6 +50,18 @@ app.get('/', (req, res) => {
 //   }
 // });
 
+app.get('/icons', async(req, res)  =>  {
+    try {
+        res.redirect("/icons.html");
+    }catch(error)  {
+        console.log(error);
+        res.status(500).send({
+            error: 'error',
+            value: error
+        });
+    }
+})
+
 app.get('/icons/:name', async(req, res)  =>  {
   const name = req.params.name;
   console.log(name);
@@ -58,7 +70,6 @@ app.get('/icons/:name', async(req, res)  =>  {
             method: 'GET',
             mode: 'cors',
             headers: {
-             'Access-Control-Allow-Origin': "*",
               Accept: 'application/json',
               Authorization: 'Bearer X0vjEUN6KRlxbp2DoUkyHeM0VOmxY91rA6BbU5j3Xu6wDodwS0McmilLPBWDUcJ1'
             }
@@ -107,6 +118,45 @@ app.get('/icons/:name', async(req, res)  =>  {
               console.log(response.icons[151].icon_id);
               response.icons.forEach(logout => {
                  if(logout.icon_id == 2867933) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else if(name=="building")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=67", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/2867890/edit_icon
+              console.log(response.icons[66].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 2867869) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else if(name=="travel")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=66", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/2867890/edit_icon
+              console.log(response.icons[65].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 2867867) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else if(name=="money")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=100", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/2867890/edit_icon
+              console.log(response.icons[99].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 2867884) {
                     getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
                         res.status(200).send(response2);       
                     });
