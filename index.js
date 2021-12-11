@@ -28,6 +28,27 @@ app.get('/', (req, res) => {
     res.redirect("/info.html");
 })
 
+// app.get('/users', async(req, res) => {
+//   try {
+//       await client.connect();
+
+//       console.log("Connected correctly to server");
+//       const db = client.db(process.env.DB);
+
+//       const col = db.collection("users");
+
+//       const data =  await col.find({}).toArray();
+//       res.status(200).send(data);
+//   }catch(error)  {
+//       console.log(error);
+//       res.status(500).send({
+//           error: 'error',
+//           value: error
+//       });
+//   }finally  {
+//       await client.close();
+//   }
+// });
 
 app.get('/icons/:name', async(req, res)  =>  {
   const name = req.params.name;
