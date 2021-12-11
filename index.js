@@ -1,15 +1,21 @@
-const fs = require('fs/promises');
-const express = require('express');
-const bodyParser = require('body-parser')
-const { MongoClient } = require("mongodb");
-const cors = require("cors");
-require('dotenv').config();
+// const fs = require('fs/promises');
+import fs from 'fs/promises';
+import fetch from 'node-fetch';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
+import cors from 'cors';
+// const express = require('express');
+// const bodyParser = require('body-parser')
+// const { MongoClient } = require("mongodb");
+//const cors = require("cors");
+//require('dotenv').config();
 
 // create the mongo Client to use
 //const client = new MongoClient(process.env.FINAL_URL)
 
 const app = express();
-const port = process.env.PORT;
+const port = 8080;
 
 
 app.use(express.static("public"));
@@ -20,6 +26,95 @@ app.use(cors());
 
 app.get('/', (req, res) => {
     res.redirect("/info.html");
+})
+
+
+app.get('/icons/:name', async(req, res)  =>  {
+  const name = req.params.name;
+  console.log(name);
+    try {
+        const options = {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+             'Access-Control-Allow-Origin': "*",
+              Accept: 'application/json',
+              Authorization: 'Bearer X0vjEUN6KRlxbp2DoUkyHeM0VOmxY91rA6BbU5j3Xu6wDodwS0McmilLPBWDUcJ1'
+            }
+          };
+          
+          if(name=="account")  {
+            getData('https://api.iconfinder.com/v4/icons/search?query=Stefan%20Taubert&count=4', options).then(response => {
+              console.log(response.icons[3].vector_sizes[0].formats[0].download_url);
+          
+                  getSvg(`${response.icons[1].vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                    // console.log(response2) 
+                    res.status(200).send(response2);       
+                  });
+              
+            })
+          }else if(name=="logout")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=45", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              console.log(response.icons[27].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 7124045) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else if(name=="download")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=45", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/7124090/download_icon
+              console.log(response.icons[9].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 2867888) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else if(name=="plus")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=152", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/2867890/edit_icon
+              // Er zijn 152 icons => array => 151
+              console.log(response.icons[151].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 2867933) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else  {
+            res.status(400).send("Bad parameter");
+          }
+          
+
+          async function getData(url, options) {
+            let response = await fetch(url, options)
+            return await response.json();
+          }  
+      
+          async function getSvg(url, options) {
+            let response = await fetch(url, options)
+            return await response.text();
+          } 
+                  
+        
+    }catch(error)  {
+        console.log(error);
+        res.status(500).send({
+            error: 'error',
+            value: error
+        });
+    }
 })
 
 app.listen(port, () => {
