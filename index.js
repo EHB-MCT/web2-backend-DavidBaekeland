@@ -42,7 +42,37 @@ app.get('/users', async(req, res) => {
       const col = db.collection("users");
 
       const data =  await col.find({}).toArray();
-      res.status(200).send(data[0].name);
+      res.status(200).send(data);
+  }catch(error)  {
+      console.log(error);
+      res.status(500).send({
+          error: 'error',
+          value: error
+      });
+  }finally  {
+      await client.close();
+  }
+});
+
+app.post('/users', async(req, res) => {
+  try {
+      await client.connect();
+
+      console.log("Connected correctly to server");
+      const db = client.db(process.env.DB);
+
+      let user =  {
+        name: req.body.name,
+        password: req.body.password,
+        department: req.body.department,
+      };
+
+      const col = db.collection("users");
+      let insertResult = await col.insertOne(user);
+      console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
+
+      const data =  await col.find({}).toArray();
+      res.status(201).send(`boardgame succesfully saved with id ${req.body.name}`);
   }catch(error)  {
       console.log(error);
       res.status(500).send({
