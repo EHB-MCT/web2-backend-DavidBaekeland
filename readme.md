@@ -8,4 +8,12 @@ https://www.youtube.com/watch?v=o7Mh1zOAjDY
 
 https://docs.mongodb.com/drivers/node/current/
 
+https://www.iconfinder.com/search?q=Heroicons
+https://www.iconfinder.com/api-solution
+
 web2-groupproject-backend-team-david
+
+let resp = await fetch()
+data = await resp.json()
+
+data.forEach(test => {})
