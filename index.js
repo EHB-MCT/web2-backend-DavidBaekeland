@@ -117,6 +117,36 @@ app.put('/users', async(req, res) => {
   }
 });
 
+app.delete('/users/:name', async(req, res) => {
+  //https://docs.mongodb.com/drivers/node/current/usage-examples/deleteOne/
+  let name = req.params.name;
+
+  console.log(name);
+  try {
+    await client.connect();
+
+    const db = client.db(process.env.DB);
+    const col = db.collection("users");
+
+    const query = { name: name };
+    const result = await col.deleteOne(query);
+
+    if (result.deletedCount === 1) {
+      res.status(201).send("Successfully deleted one document.");
+    } else {
+      res.status(400).send(`There is null documents with name: ${name}`);
+    }
+  }catch(error)  {
+      console.log(error);
+      res.status(500).send({
+          error: 'error',
+          value: error
+      });
+  }finally  {
+      await client.close();
+  }
+});
+
 app.get('/icons', async(req, res)  =>  {
     try {
         res.redirect("/icons.html");
