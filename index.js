@@ -84,6 +84,39 @@ app.post('/users', async(req, res) => {
   }
 });
 
+app.put('/users', async(req, res) => {
+  //https://docs.mongodb.com/drivers/node/current/usage-examples/updateOne/
+  let name = req.body.name;
+  let setName = req.body.setName;
+  console.log(name, setName);
+  try {
+    await client.connect();
+
+    const db = client.db(process.env.DB);
+    const col = db.collection("users");
+
+    // naam user veranderen met parameter
+    const filter = { name: name };
+
+    // create a document that sets the plot of the movie
+    const updateDoc = {
+      $set: {
+        name: setName
+      },
+    };
+    const result = await col.updateOne(filter, updateDoc);
+    res.status(200).send(`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`);
+  }catch(error)  {
+      console.log(error);
+      res.status(500).send({
+          error: 'error',
+          value: error
+      });
+  }finally  {
+      await client.close();
+  }
+});
+
 app.get('/icons', async(req, res)  =>  {
     try {
         res.redirect("/icons.html");
