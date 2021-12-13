@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import fetch from 'node-fetch';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import cors from 'cors';
 import * as dotenv from "dotenv"
 dotenv.config()
@@ -260,7 +260,20 @@ app.get('/icons/:name', async(req, res)  =>  {
                  }
               })
             })
-          }else  {
+          }else if(name=="pijl")  {
+            getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=207", options).then(response => {
+              //https://www.iconfinder.com/search?q=Heroicons
+              // https://www.iconfinder.com/icons/2867890/edit_icon
+              console.log(response.icons[206].icon_id);
+              response.icons.forEach(logout => {
+                 if(logout.icon_id == 7124043) {
+                    getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                        res.status(200).send(response2);       
+                    });
+                 }
+              })
+            })
+          }else {
             res.status(400).send("Bad parameter");
           }
           
