@@ -70,7 +70,13 @@ app.post('/user', async(req, res) => {
 
       const col = db.collection("users");
 
-       
+      const data =  await col.findOne(user);
+      console.log(data)
+      if(data != null) {
+        res.status(200).send(data);
+      } else  {
+        res.status(400).send({err: "Input is wrong"})
+      }
   }catch(error)  {
       console.log(error);
       res.status(500).send({
