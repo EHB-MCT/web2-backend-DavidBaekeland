@@ -9,6 +9,13 @@
 <body>
     <ul>
         <li> Get / = root info page</li>
+        <li> Get /users = all users</li>
+        <li> Post /user = find a user in the database => body: {email, password}</li>
+        <li> Post /newUser = post a user in th database => body: {email, password, department}</li>
+        <li> Put /user = changed the password => password: req.body.password, setPassword: req.body.setPassword;</li>
+        <li> Delete /users/:name = Delet user => name</li>
+        <li> Get /icons = icon info page</li>
+        <li> Get /icons/:name = specific icon</li>
     </ul>
 </body>
 </html>
