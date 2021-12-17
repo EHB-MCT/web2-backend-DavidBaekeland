@@ -88,7 +88,7 @@ app.post('/user', async(req, res) => {
   }
 });
 
-app.post('/users', async(req, res) => {
+app.post('/newUser', async(req, res) => {
   try {
       await client.connect();
 
@@ -120,9 +120,9 @@ app.post('/users', async(req, res) => {
 
 app.put('/users', async(req, res) => {
   //https://docs.mongodb.com/drivers/node/current/usage-examples/updateOne/
-  let name = req.body.name;
-  let setName = req.body.setName;
-  console.log(name, setName);
+  let email = req.body.email;
+  let setPassword = req.body.setPassword;
+  console.log(email, setPassword);
   try {
     await client.connect();
 
@@ -130,12 +130,12 @@ app.put('/users', async(req, res) => {
     const col = db.collection("users");
 
     // naam user veranderen met parameter
-    const filter = { name: name };
+    const filter = { email: email };
 
     // create a document that sets the plot of the movie
     const updateDoc = {
       $set: {
-        name: setName
+        password: setPassword
       },
     };
     const result = await col.updateOne(filter, updateDoc);
