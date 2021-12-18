@@ -99,6 +99,7 @@ app.post('/newUser', async(req, res) => {
         email: req.body.email,
         password: req.body.password,
         department: req.body.department,
+        question: []
       };
 
       const col = db.collection("users");
@@ -106,7 +107,7 @@ app.post('/newUser', async(req, res) => {
       console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
       const data =  await col.find({}).toArray();
-      res.status(201).send(`boardgame succesfully saved with id ${req.body.name}`);
+      res.status(201).send(`User succesfully saved with id ${req.body.name}`);
   }catch(error)  {
       console.log(error);
       res.status(500).send({
@@ -151,25 +152,61 @@ app.put('/users', async(req, res) => {
   }
 });
 
-app.delete('/users/:name', async(req, res) => {
-  //https://docs.mongodb.com/drivers/node/current/usage-examples/deleteOne/
-  let name = req.params.name;
-
-  console.log(name);
+app.put('/question', async(req, res) => {
+  //https://docs.mongodb.com/drivers/node/current/usage-examples/updateOne/
+  let id = req.body.id;
+  let setQuestions = req.body.setQuestions;
+  console.log(id, setQuestions);
   try {
     await client.connect();
 
     const db = client.db(process.env.DB);
     const col = db.collection("users");
 
-    const query = { name: name };
+    // naam user veranderen met parameter
+    const filter = {_id: ObjectId(id)};
+
+    // create a document that sets the plot of the movie
+    const updateDoc = {
+      $set: {
+        question: setQuestions
+      },
+    };
+    const result = await col.updateOne(filter, updateDoc);
+    res.status(200).send(`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`);
+  }catch(error)  {
+      console.log(error);
+      res.status(500).send({
+          error: 'error',
+          value: error
+      });
+  }finally  {
+      await client.close();
+  }
+});
+
+app.delete('/users/:id', async(req, res) => {
+  //https://docs.mongodb.com/drivers/node/current/usage-examples/deleteOne/
+  let id = ObjectId(req.params.id);
+
+  console.log(id);
+  try {
+    await client.connect();
+
+    const db = client.db(process.env.DB);
+    const col = db.collection("users");
+
+    const query = {_id: id};
     const result = await col.deleteOne(query);
 
+    
     if (result.deletedCount === 1) {
+      console.log("sdqfqsdfqsdf");
       res.status(201).send("Successfully deleted one document.");
     } else {
-      res.status(400).send(`There is null documents with name: ${name}`);
+      res.status(400).send(`There is null documents with name: ${id}`);
     }
+    // res.status(201).send("Successfully deleted one document.");
   }catch(error)  {
       console.log(error);
       res.status(500).send({
