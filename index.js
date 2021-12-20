@@ -57,11 +57,21 @@ app.get('/users', async(req, res) => {
 app.post('/user', async(req, res) => {
   try {
       await client.connect();
+      
+      let user;
+      
+      // check if id exist
+      if(req.body.id && !req.body.email && !req.body.password)  {
+        user = {
+          _id: ObjectId(req.body.id)
+        };
+      } else {
+        user = {
+          email: req.body.email,
+          password: req.body.password,
+        }
+      }
 
-      let user = {
-        email: req.body.email,
-        password: req.body.password,
-      };
 
       console.log(req.body);
 
