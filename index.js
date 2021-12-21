@@ -113,8 +113,6 @@ app.post('/newUser', async(req, res) => {
       };
 
       const col = db.collection("users");
-      let insertResult = await col.insertOne(user);
-      console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
       const data =  await col.insertOne(user)
       res.status(201).send(data);
