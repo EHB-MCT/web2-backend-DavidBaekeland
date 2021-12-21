@@ -116,8 +116,8 @@ app.post('/newUser', async(req, res) => {
       let insertResult = await col.insertOne(user);
       console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
-      const data =  await col.find({}).toArray();
-      res.status(201).send(`User succesfully saved with id ${req.body.name}`);
+      const data =  await col.insertOne(user)
+      res.status(201).send(insertResult.insertedId);
   }catch(error)  {
       console.log(error);
       res.status(500).send({
