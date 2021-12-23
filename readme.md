@@ -7,6 +7,11 @@ https://www.makeareadme.com/
 https://www.youtube.com/watch?v=vXmeO_BKrxA
 https://www.youtube.com/watch?v=p3O6YcUUJmE
 https://expressjs.com/
+https://expressjs.com/en/guide/routing.html
+https://github.com/gorgorgordon/node_css_demo
+
+### Heroku
+http://herokuapp.com/
 
 ### Postman
 https://www.youtube.com/watch?v=8j8qc6sx7Xo
@@ -28,6 +33,33 @@ https://developer.iconfinder.com/reference/overview-1
 
 ### Status codes
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+https://stackoverflow.com/questions/48433783/referenceerror-fetch-is-not-defined
+
+
+## Fetch
+https://exerror.com/referenceerror-fetch-is-not-defined-in-nodejs/
+https://stackoverflow.com/questions/48433783/referenceerror-fetch-is-not-defined
+
+### FS
+https://www.tutorialkart.com/nodejs/create-file-in-nodejs-using-node-fs-module/
+
+https://www.w3schools.com/nodejs/nodejs_filesystem.asp
+
+https://stackoverflow.com/questions/14413559/why-is-response-write-in-node-js-not-injecting-html
+
+https://www.w3schools.com/nodejs/nodejs_filesystem.asp
+
+## ESM
+https://stackoverflow.com/questions/58211880/uncaught-syntaxerror-cannot-use-import-statement-outside-a-module-when-import
+
+https://exerror.com/uncaught-syntaxerror-cannot-use-import-statement-outside-a-module-when-importing-ecmascript-6/
+
+https://nodejs.org/api/packages.html#type
+
+## LocalStorage
+DEVII - Joni De Borger / Jan Everaert
+https://github.com/EHB-MCT/web2-exercises-mikederycke-1 
+
 
 ### NPM
 https://www.npmjs.com/
@@ -38,6 +70,8 @@ https://www.npmjs.com/package/node-fetch
 https://www.npmjs.com/package/body-parser
 https://www.npmjs.com/package/fs
 https://www.npmjs.com/package/mongodb
+https://nodejs.org/api/http.html
+https://nodejs.org/en/docs/
 
 ### Group Project - Kesver Tanrikulu, Hira Akhtar
 web2-groupproject-backend-team-david
