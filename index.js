@@ -394,6 +394,23 @@ app.get('/icons/:name', async(req, res)  =>  {
             }catch(error) {
               console.log(error)
             };
+          }else if(name=="refresh")  {
+            try {
+              getData("https://api.iconfinder.com/v4/icons/search?query=Heroicons&count=76", options).then(response => {
+                //https://www.iconfinder.com/search?q=Heroicons
+                // https://www.iconfinder.com/icons/2867890/edit_icon
+                console.log(response.icons[75].icon_id);
+                response.icons.forEach(logout => {
+                   if(logout.icon_id == 2867936) {
+                      getSvg(`${logout.vector_sizes[0].formats[0].download_url}`, options).then(response2 =>  {
+                          res.status(200).send(response2);       
+                      });
+                   }
+                })
+              })
+            }catch(error) {
+              console.log(error)
+            };
           }else {
             res.status(400).send("Bad parameter");
           }
