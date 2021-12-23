@@ -54,6 +54,7 @@ app.get('/users', async(req, res) => {
   }
 });
 
+// Get a specific user
 app.post('/user', async(req, res) => {
   try {
       await client.connect();
@@ -98,6 +99,7 @@ app.post('/user', async(req, res) => {
   }
 });
 
+// Create a new User
 app.post('/newUser', async(req, res) => {
   try {
       await client.connect();
@@ -127,12 +129,14 @@ app.post('/newUser', async(req, res) => {
   }
 });
 
+// Change a password from a specific user
 app.put('/users', async(req, res) => {
   //https://docs.mongodb.com/drivers/node/current/usage-examples/updateOne/
-  let email = req.body.email;
-  let setPassword = req.body.setPassword;
-  console.log(email, setPassword);
   try {
+    let email = req.body.email;
+    let setPassword = req.body.setPassword;
+    console.log(email, setPassword);
+
     await client.connect();
 
     const db = client.db(process.env.DB);
@@ -160,12 +164,14 @@ app.put('/users', async(req, res) => {
   }
 });
 
+// Add a question to a specific user
 app.put('/question', async(req, res) => {
   //https://docs.mongodb.com/drivers/node/current/usage-examples/updateOne/
-  let id = req.body.id;
-  let setQuestions = req.body.setQuestions;
-  console.log(id, setQuestions);
   try {
+    let id = req.body.id;
+    let setQuestions = req.body.setQuestions;
+    console.log(id, setQuestions);
+
     await client.connect();
 
     const db = client.db(process.env.DB);
@@ -193,12 +199,14 @@ app.put('/question', async(req, res) => {
   }
 });
 
+// Delete a specific user
 app.delete('/users/:id', async(req, res) => {
   //https://docs.mongodb.com/drivers/node/current/usage-examples/deleteOne/
-  let id = ObjectId(req.params.id);
-
-  console.log(id);
   try {
+    let id = ObjectId(req.params.id);
+
+    console.log(id);
+
     await client.connect();
 
     const db = client.db(process.env.DB);
@@ -226,6 +234,7 @@ app.delete('/users/:id', async(req, res) => {
   }
 });
 
+// Get Root icons
 app.get('/icons', async(req, res)  =>  {
     try {
         res.redirect("/icons.html");
@@ -238,6 +247,7 @@ app.get('/icons', async(req, res)  =>  {
     }
 })
 
+// Get a specific icon
 app.get('/icons/:name', async(req, res)  =>  {
   const name = req.params.name;
   console.log(name);
