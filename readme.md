@@ -1,3 +1,12 @@
+# Usage:
+## Login
+### 1
+email: d@d.d
+wachtwoord: d
+### 2
+create new account
+
+
 # Referenties
 ## Readme 
 https://www.makeareadme.com/
