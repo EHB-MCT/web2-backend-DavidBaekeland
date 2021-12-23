@@ -1,4 +1,3 @@
-// const fs = require('fs/promises');
 import fs from 'fs/promises';
 import fetch from 'node-fetch';
 import express from 'express';
@@ -7,13 +6,6 @@ import { MongoClient, ObjectId } from 'mongodb';
 import cors from 'cors';
 import * as dotenv from "dotenv"
 dotenv.config()
-// const express = require('express');
-// const bodyParser = require('body-parser')
-// const { MongoClient } = require("mongodb");
-//const cors = require("cors");
-//require('dotenv').config();
-
-
 
 // create the mongo Client to use
 const client = new MongoClient(process.env.FINAL_URL)
@@ -222,7 +214,6 @@ app.delete('/users/:id', async(req, res) => {
     } else {
       res.status(400).send(`There is null documents with name: ${id}`);
     }
-    // res.status(201).send("Successfully deleted one document.");
   }catch(error)  {
       console.log(error);
       res.status(500).send({
